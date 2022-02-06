@@ -35,3 +35,11 @@ if the vulnerability are acceptable to you.
 The dashboard has a nifty button that will download the OSS that you have added to a CSV file. This will help make is
 easier to share what software you want to use. If you operate in a process heavy environment, this file will be helpful
 with any requests or process you need to go thru.
+
+See [oss-facts oss.csv](./oss.csv) for an example of the CSV file.
+
+## Dashboard Example
+
+Below is a screenshot of all the OSS that this application uses.
+
+![pic](./pictures/oss-2022-02-05.png)
