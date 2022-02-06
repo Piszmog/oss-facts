@@ -3,7 +3,7 @@ import fetch from "node-fetch";
 import {Repository} from "./models";
 
 const octokit = new Octokit({
-    auth: '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'
+    auth: process.env.GITHUB_API,
 });
 
 /**
