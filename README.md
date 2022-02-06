@@ -1,34 +1,37 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# OSS Facts
 
-## Getting Started
+🔎 A dashboard to determine if Open Source Software (OSS) is friendly to use.
 
-First, run the development server:
+Visit [oss-facts](https://oss-facts.vercel.app/) to determine if certain Open Source Software (OSS) is friendly to use.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## Why?
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+When building a library, an application, or a framework, there is a good chance you will be depending on Open Source
+Software (OSS). But not all OSS is friendly to use. The licensing of the OSS needs to be evaluated to determine if it is
+friendly to what you are building. Before use OSS, you also need to determine if there are any open security advisories.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+To help determine if OSS is friendly to use, this dashboard will help with providing this information in an
+easy-to-understand way.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## What is determined friendly?
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Licensing
 
-## Learn More
+*OSS Facts* approaches the licensing in an **opinionated** way (not everyone will agree).
 
-To learn more about Next.js, take a look at the following resources:
+Any license that is "viral" (e.g. GNU, Mozilla 2.0) or forces source code to be disclosed is considered "not friendly"
+to use. The reasoning is that not everyone building software will want to disclose their source code nor be forced to
+use a certain license.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+*OSS Facts* will simply make you aware of the risks of using OSS that has a "not friendly" license.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Security
 
-## Deploy on Vercel
+Any OSS that has any Security Advisories is not considered friendly to use. You need to check the OSS page to determine
+if the vulnerability are acceptable to you.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## How to share OSS choices?
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+The dashboard has a nifty button that will download the OSS that you have added to a CSV file. This will help make is
+easier to share what software you want to use. If you operate in a process heavy environment, this file will be helpful
+with any requests or process you need to go thru.
