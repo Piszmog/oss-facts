@@ -1,16 +1,16 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
-import {search} from "../../lib/http";
+import {getRepos} from "../../lib/http";
 import {Repository} from "../../lib/models";
 
 /**
- * Search repositories.
- * @param req The request.
- * @param res The response.
+ * Retrieves repositories from GitHub API.
+ * @param req Request object.
+ * @param res Response object.
  */
 const handler = async (req: NextApiRequest, res: NextApiResponse<Repository[]>) => {
     if (req.method === 'POST') {
-        let results = await search(req.body.query);
-        res.status(200).json(results);
+        const repositories = await getRepos(req.body.names);
+        res.status(200).json(repositories);
     } else {
         res.status(405);
     }

@@ -1,18 +1,39 @@
 import React, {useState} from 'react';
 import {Box, Button, Flex, Spacer, useDisclosure} from "@chakra-ui/react";
 import {SmallAddIcon} from "@chakra-ui/icons";
-import {NextPage} from "next";
+import {GetServerSideProps, InferGetServerSidePropsType, NextPage} from "next";
 import SearchModal from "../components/searchModal";
-import DownloadButton from "../components/downloadButton";
+import ExportButton from "../components/exportButton";
 import SelectedTable from "../components/selectedTable";
 import {Repository} from "../lib/models";
 import Banner from "../components/banner";
+import ImportButton from "../components/importButton";
+import {getRepos} from "../lib/http";
+import CopyButton from "../components/copyButton";
+
+/**
+ * Loads any initial repositories specified in the query param.
+ * @param context The context of the request.
+ */
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    let initialRepos: Repository[] = [];
+    if (context.query.names) {
+        const decodedNames = Buffer.from(context.query.names as string, 'base64').toString('ascii');
+        const repoNames = decodedNames.split(',');
+        initialRepos = await getRepos(repoNames);
+    }
+    return {
+        props: {
+            initialRepos
+        }
+    };
+}
 
 /**
  * The main page of the application.
  */
-const Home: NextPage = () => {
-    const [results, setResults] = useState<Repository[]>([]);
+const Home: NextPage = ({initialRepos}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+    const [repos, setRepos] = useState<Repository[]>(initialRepos);
     const {isOpen, onOpen, onClose} = useDisclosure();
 
     const handleAdd = async (r: Repository) => {
@@ -21,7 +42,7 @@ const Home: NextPage = () => {
             .then(res => res.json())
             .then(data => {
                 r.advisories = data.published;
-                setResults([...results, r]);
+                setRepos([...repos, r]);
             });
     };
 
@@ -34,21 +55,23 @@ const Home: NextPage = () => {
                     <SearchModal
                         isOpen={isOpen}
                         onClose={onClose}
-                        added={results}
+                        added={repos}
                         onAdd={handleAdd}
                     />
                 </Box>
                 <Spacer/>
                 <Box>
-                    <DownloadButton repos={results}/>
+                    <CopyButton repos={repos}/>
+                    <ImportButton handleImport={r => setRepos(r)}/>
+                    <ExportButton repos={repos}/>
                 </Box>
             </Flex>
             <SelectedTable
-                repos={results}
-                onRemove={s => setResults(results.filter(v => v.fullName !== s.fullName))}
+                repos={repos}
+                onRemove={s => setRepos(repos.filter(v => v.fullName !== s.fullName))}
             />
         </Box>
     );
-}
+};
 
-export default Home
+export default Home;

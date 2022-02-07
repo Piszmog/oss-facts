@@ -71,6 +71,6 @@ const SearchModal = ({isOpen, onClose, added, onAdd}: SearchModalProps) => {
             </ModalContent>
         </Modal>
     );
-}
+};
 
 export default SearchModal;

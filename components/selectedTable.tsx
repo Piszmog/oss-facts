@@ -12,7 +12,7 @@ import AdvisoryStatus from "./advisoryStatus";
 type SelectedTableProps = {
     repos: Repository[];
     onRemove: (selected: Repository) => void;
-}
+};
 
 /**
  * A table of selected repositories.
@@ -84,6 +84,6 @@ const SelectedTable = ({repos, onRemove}: SelectedTableProps) => {
             </Tbody>
         </Table>
     );
-}
+};
 
 export default SelectedTable;

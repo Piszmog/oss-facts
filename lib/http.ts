@@ -62,6 +62,26 @@ export const search = async (searchTerm: string): Promise<Repository[]> => {
         }));
 }
 
+/**
+ * Retrieves all the repositories.
+ * @param names The names of the repositories to retrieve.
+ */
+export const getRepos = async (names: string[]): Promise<Repository[]> => {
+    const repoPromises: Promise<Repository>[] = [];
+    const advisoryPromises: Promise<any>[] = [];
+    names.forEach((name: string) => {
+        const parts = name.split('/');
+        repoPromises.push(getRepo(parts[0], parts[1]));
+        advisoryPromises.push(getAdvisoryAlerts(parts[0], parts[1]));
+    });
+    const repositories = await Promise.all(repoPromises);
+    const advisories = await Promise.all(advisoryPromises);
+    repositories.forEach((repo: Repository, index: number) => {
+        repo.advisories = advisories[index];
+    });
+    return repositories;
+}
+
 const advisoriesPattern = '[0-9]+ Published';
 
 /**
@@ -81,3 +101,64 @@ export const getAdvisoryAlerts = async (owner: string, repo: string): Promise<nu
     }
     return 0;
 }
+
+/**
+ * Retrieves the repository information.
+ * @param owner The owner of the repository.
+ * @param repo The repository name.
+ */
+export const getRepo = async (owner: string, repo: string): Promise<Repository> => {
+    return octokit.graphql(`query RepositoryQuery($owner: String!, $repo: String!) {
+  repository(name: $repo, owner: $owner) {
+    url
+    licenseInfo {
+      conditions {
+        key
+        description
+      }
+      limitations {
+        description
+        key
+      }
+      permissions {
+        description
+        key
+      }
+      name
+      url
+    }
+    nameWithOwner
+  }
+}`, {
+        owner,
+        repo,
+    })
+        .then((resp: any) => resp.repository)
+        .then((repo: any) => {
+            let license = undefined;
+            if (repo.licenseInfo) {
+                license = {
+                    name: repo.licenseInfo.name,
+                    limitations: repo.licenseInfo.limitations,
+                    permissions: repo.licenseInfo.permissions,
+                    conditions: repo.licenseInfo.conditions,
+                    url: repo.licenseInfo.url
+                };
+            }
+            return {
+                fullName: repo.nameWithOwner,
+                url: repo.url,
+                license,
+                advisories: 0,
+            }
+        })
+        .catch(() => {
+            return {
+                fullName: `${owner}/${repo}`,
+                url: '',
+                license: undefined,
+                advisories: 0,
+            }
+        });
+}
+

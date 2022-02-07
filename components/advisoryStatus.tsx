@@ -25,6 +25,6 @@ const AdvisoryStatus = ({url, advisories}: AdvisoryStatusProps) => {
             </Tag>
         </Link>
     );
-}
+};
 
 export default AdvisoryStatus;

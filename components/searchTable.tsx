@@ -9,7 +9,7 @@ type SearchTableProps = {
     searchResults: Repository[];
     addedResults: Repository[];
     onAdd: (result: Repository) => void;
-}
+};
 
 /**
  * The search table component.
@@ -58,6 +58,6 @@ const SearchTable = ({searchResults, addedResults, onAdd}: SearchTableProps) => 
             }
         </Table>
     );
-}
+};
 
 export default SearchTable;
