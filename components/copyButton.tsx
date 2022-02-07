@@ -1,5 +1,5 @@
 import {Repository} from "../lib/models";
-import {Button} from "@chakra-ui/react";
+import {Button, Tooltip} from "@chakra-ui/react";
 import {CopyIcon} from "@chakra-ui/icons";
 
 /**
@@ -21,15 +21,17 @@ const CopyButton = ({repos}: CopyButtonProps) => {
     };
 
     return (
-        <Button
-            mr={2}
-            variant='solid'
-            colorScheme='blue'
-            rightIcon={<CopyIcon/>}
-            onClick={onClick}
-        >
-            Copy
-        </Button>
+        <Tooltip label='Copy the url of the dashboard with the selected repositories' hasArrow>
+            <Button
+                mr={2}
+                variant='solid'
+                colorScheme='blue'
+                rightIcon={<CopyIcon/>}
+                onClick={onClick}
+            >
+                Copy
+            </Button>
+        </Tooltip>
     );
 };
 
