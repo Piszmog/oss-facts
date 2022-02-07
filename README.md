@@ -32,11 +32,23 @@ if the vulnerability are acceptable to you.
 
 ## How to share OSS choices?
 
+### CSV
+
 The dashboard has a nifty button that will download the OSS that you have added to a CSV file. This will help make is
 easier to share what software you want to use. If you operate in a process heavy environment, this file will be helpful
 with any requests or process you need to go thru.
 
-See [oss-facts oss.csv](./oss.csv) for an example of the CSV file.
+See [oss.csv](./oss.csv) for an example of the CSV file.
+
+A CSV can be imported back into the dashboard to view the selected OSS.
+
+### Dashboard URL
+
+The `Copy` Button will copy the URL of the dashboard to your clipboard. This allows the dashboard to be shared with
+anyone.
+
+For example,
+see [oss-facts dashboard](https://oss-facts.vercel.app/?names=Y2hha3JhLXVpL2NoYWtyYS11aSxlbW90aW9uLWpzL2Vtb3Rpb24sZnJhbWVyL21vdGlvbix6ZW1pcmNvL2pzb24yY3N2LHZlcmNlbC9uZXh0LmpzLG5vZGUtZmV0Y2gvbm9kZS1mZXRjaCxvY3Rva2l0L29jdG9raXQuanMsZmFjZWJvb2svcmVhY3QsbWljcm9zb2Z0L1R5cGVTY3JpcHQsZXNsaW50L2VzbGludA==)
 
 ## Dashboard Example
 
