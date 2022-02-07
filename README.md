@@ -34,6 +34,8 @@ if the vulnerability are acceptable to you.
 
 ### CSV
 
+*Not available on mobile*
+
 The dashboard has a nifty button that will download the OSS that you have added to a CSV file. This will help make is
 easier to share what software you want to use. If you operate in a process heavy environment, this file will be helpful
 with any requests or process you need to go thru.

@@ -10,6 +10,7 @@ import Banner from "../components/banner";
 import ImportButton from "../components/importButton";
 import {getRepos} from "../lib/http";
 import CopyButton from "../components/copyButton";
+import {isMobile} from 'react-device-detect';
 
 /**
  * Loads any initial repositories specified in the query param.
@@ -51,7 +52,7 @@ const Home: NextPage = ({initialRepos}: InferGetServerSidePropsType<typeof getSe
             <Banner/>
             <Flex mt={10}>
                 <Box>
-                    <Button onClick={onOpen} rightIcon={<SmallAddIcon/>} colorScheme='green'>Add</Button>
+                    <Button onClick={onOpen} rightIcon={<SmallAddIcon/>} colorScheme='green' mr={2}>Add</Button>
                     <SearchModal
                         isOpen={isOpen}
                         onClose={onClose}
@@ -62,8 +63,16 @@ const Home: NextPage = ({initialRepos}: InferGetServerSidePropsType<typeof getSe
                 <Spacer/>
                 <Box>
                     <CopyButton repos={repos}/>
-                    <ImportButton handleImport={r => setRepos(r)}/>
-                    <ExportButton repos={repos}/>
+                    {
+                        isMobile ?
+                            <></>
+                            :
+                            <>
+                                <ImportButton handleImport={r => setRepos(r)}/>
+                                <ExportButton repos={repos}/>
+                            </>
+                    }
+
                 </Box>
             </Flex>
             <SelectedTable
