@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@types/json2csv": "^5.0.3",
-    "@types/node": "17.0.21",
+    "@types/node": "17.0.22",
     "@types/node-fetch": "^2.5.12",
     "@types/react": "17.0.41",
     "eslint": "8.11.0",
